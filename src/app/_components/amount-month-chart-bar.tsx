@@ -29,14 +29,14 @@ const chartConfig = {
 } satisfies ChartConfig
 
 // Define the type for the props the component will accept
-interface AmountYearChartBarProps {
+interface AmountMonthChartBarProps {
   data: {
-    year: string
+    month: string
     amount: number
   }[]
 }
 
-export function AmountYearChartBar({ data }: AmountYearChartBarProps) {
+export function AmountMonthChartBar({ data }: AmountMonthChartBarProps) {
   return (
     <Card>
       <CardHeader>
@@ -54,7 +54,7 @@ export function AmountYearChartBar({ data }: AmountYearChartBarProps) {
           >
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="year"
+              dataKey="month"
               tickLine={false}
               tickMargin={10}
               axisLine={false}
