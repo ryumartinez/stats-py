@@ -39,7 +39,7 @@ export default async function Home() {
 
   return (
     <HydrateClient>
-      <DashboardLayout>
+      <DashboardLayout rowHeight="200px">
         <AmountYearChartBar data={amountYearData} />
         <AmountYearChartBar data={amountYearData} />
         <AmountYearChartBar data={amountYearData} />

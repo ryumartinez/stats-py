@@ -31,44 +31,34 @@ interface AmountYearChartAreaLinearProps {
 
 export function AmountYearChartAreaLinear({ data }: AmountYearChartAreaLinearProps) {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Area Chart - Linear</CardTitle>
-        <CardDescription>
-          Showing total visitors for the last 6 months
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig} className="min-h-[150px]">
-          <AreaChart
-            accessibilityLayer
-            data={data}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="dot" hideLabel />}
-            />
-            <Area
-              dataKey="amount"
-              type="linear"
-              fill="var(--color-amount)"
-              fillOpacity={0.4}
-              stroke="var(--color-amount)"
-            />
-          </AreaChart>
-        </ChartContainer>
-      </CardContent>
-    </Card>
+    <ChartContainer config={chartConfig} className="min-h-[150px]">
+      <AreaChart
+        accessibilityLayer
+        data={data}
+        margin={{
+          left: 12,
+          right: 12,
+        }}
+      >
+        <CartesianGrid vertical={false} />
+        <XAxis
+          dataKey="month"
+          tickLine={false}
+          axisLine={false}
+          tickMargin={8}
+        />
+        <ChartTooltip
+          cursor={false}
+          content={<ChartTooltipContent indicator="dot" hideLabel />}
+        />
+        <Area
+          dataKey="amount"
+          type="linear"
+          fill="var(--color-amount)"
+          fillOpacity={0.4}
+          stroke="var(--color-amount)"
+        />
+      </AreaChart>
+    </ChartContainer>
   )
 }
