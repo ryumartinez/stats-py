@@ -1,6 +1,6 @@
 "use client"
 
-import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts"
+import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
 import {
   Card,
   CardContent,
@@ -13,7 +13,7 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "~/components/ui/chart"
+} from "~/components/ui/chart";
 
 const chartConfig = {
   amount: {
@@ -22,49 +22,51 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-interface AmountYearChartBarProps {
+interface AmountYearChartAreaLinearProps {
   data: {
     year: string
     amount: number
   }[]
 }
 
-export function AmountYearChartBar({ data }: AmountYearChartBarProps) {
+export function AmountYearChartAreaLinear({ data }: AmountYearChartAreaLinearProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Bar Chart - Label</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle>Area Chart - Linear</CardTitle>
+        <CardDescription>
+          Showing total visitors for the last 6 months
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
-          <BarChart
+          <AreaChart
             accessibilityLayer
             data={data}
             margin={{
-              top: 20,
+              left: 12,
+              right: 12,
             }}
           >
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="year"
+              dataKey="month"
               tickLine={false}
-              tickMargin={10}
               axisLine={false}
+              tickMargin={8}
             />
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent hideLabel />}
+              content={<ChartTooltipContent indicator="dot" hideLabel />}
             />
-            <Bar dataKey="amount" fill="var(--color-amount)" radius={8}>
-              <LabelList
-                position="top"
-                offset={12}
-                className="fill-foreground"
-                fontSize={12}
-              />
-            </Bar>
-          </BarChart>
+            <Area
+              dataKey="amount"
+              type="linear"
+              fill="var(--color-amount)"
+              fillOpacity={0.4}
+              stroke="var(--color-amount)"
+            />
+          </AreaChart>
         </ChartContainer>
       </CardContent>
     </Card>

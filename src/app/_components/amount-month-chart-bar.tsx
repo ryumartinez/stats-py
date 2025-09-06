@@ -1,13 +1,10 @@
 "use client"
 
-import { TrendingUp } from "lucide-react"
 import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts"
-
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "~/components/ui/card"
@@ -18,9 +15,6 @@ import {
   ChartTooltipContent,
 } from "~/components/ui/chart"
 
-export const description = "A bar chart with a label"
-
-// The chart's configuration remains, as it's specific to this component's style.
 const chartConfig = {
   amount: {
     label: "amount",
@@ -28,7 +22,6 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-// Define the type for the props the component will accept
 interface AmountMonthChartBarProps {
   data: {
     month: string

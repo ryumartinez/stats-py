@@ -1,6 +1,8 @@
 import { api, HydrateClient } from "~/trpc/server";
 import { AmountYearChartBar } from "~/app/_components/amount-year-chart-bar";
 import { AmountMonthChartBar } from "~/app/_components/amount-month-chart-bar";
+import { AmountYearChartAreaLinear } from "~/app/_components/amount-year-chart-area-lineal";
+import { AmountMonthChartLineMultiple } from "~/app/_components/amount-month-chart-line-multiple";
 
 export default async function Home() {
   const amountYearData = [
@@ -21,6 +23,15 @@ export default async function Home() {
     { month: "Noviembre", amount: 214 },
   ]
 
+  const amountMonthChartMultipleData = [
+    { month: "January", amount1: 186, amount2: 80 },
+    { month: "February", amount1: 305, amount2: 200 },
+    { month: "March", amount1: 237, amount2: 120 },
+    { month: "April", amount1: 73, amount2: 190 },
+    { month: "May", amount1: 209, amount2: 130 },
+    { month: "June", amount1: 214, amount2: 140 },
+  ]
+
   const hello = await api.post.hello({ text: "from tRPC" });
 
   void api.post.getLatest.prefetch();
@@ -29,6 +40,8 @@ export default async function Home() {
     <HydrateClient>
       <AmountYearChartBar data={amountYearData}/>
       <AmountMonthChartBar data={amountMonthData}/>
+      <AmountYearChartAreaLinear data={amountYearData}/>
+      <AmountMonthChartLineMultiple data={amountMonthChartMultipleData}/>
     </HydrateClient>
   );
 }
