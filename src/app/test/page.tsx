@@ -38,10 +38,32 @@ export default async function Home() {
 
   return (
     <HydrateClient>
-      <AmountYearChartBar data={amountYearData}/>
-      <AmountMonthChartBar data={amountMonthData}/>
-      <AmountYearChartAreaLinear data={amountYearData}/>
-      <AmountMonthChartLineMultiple data={amountMonthChartMultipleData}/>
+      <div className="grid grid-cols-3 grid-rows-6">
+        <AmountYearChartBar data={amountYearData}/>
+        <AmountYearChartBar data={amountYearData}/>
+        <AmountYearChartBar data={amountYearData}/>
+
+        <div className="col-span-2">
+          <AmountMonthChartBar data={amountMonthData}/>
+        </div>
+        <div className="col-span-2">
+          <AmountMonthChartBar data={amountMonthData}/>
+        </div>
+        <div className="col-span-2">
+          <AmountMonthChartBar data={amountMonthData}/>
+        </div>
+
+        <div className="col-span-1 row-span-3 row-start-2 col-start-3 bg-amber-500"></div>
+
+        <div className="col-span-full">
+          <AmountYearChartAreaLinear data={amountYearData}/>
+        </div>
+
+        <div className="col-span-full">
+          <AmountMonthChartLineMultiple data={amountMonthChartMultipleData}/>
+        </div>
+
+      </div>
     </HydrateClient>
   );
 }
