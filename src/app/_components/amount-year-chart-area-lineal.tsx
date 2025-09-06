@@ -31,7 +31,7 @@ interface AmountYearChartAreaLinearProps {
 
 export function AmountYearChartAreaLinear({ data }: AmountYearChartAreaLinearProps) {
   return (
-    <ChartContainer config={chartConfig} className="min-h-[150px]">
+    <ChartContainer config={chartConfig} className="min-h-[150px] max-h-[150px] w-full">
       <AreaChart
         accessibilityLayer
         data={data}

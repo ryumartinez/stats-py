@@ -31,7 +31,7 @@ interface AmountMonthChartBarProps {
 
 export function AmountMonthChartBar({ data }: AmountMonthChartBarProps) {
   return (
-    <ChartContainer config={chartConfig} className="min-h-[150px]">
+    <ChartContainer config={chartConfig} className="min-h-[150px] max-h-[150px] w-full">
       <BarChart
         accessibilityLayer
         data={data} // Use the 'data' prop here
@@ -50,7 +50,7 @@ export function AmountMonthChartBar({ data }: AmountMonthChartBarProps) {
           cursor={false}
           content={<ChartTooltipContent hideLabel />}
         />
-        <Bar dataKey="amount" fill="var(--color-amount)" radius={8}>
+        <Bar dataKey="amount" fill="var(--color-amount)">
           <LabelList
             position="top"
             offset={12}

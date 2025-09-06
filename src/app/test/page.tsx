@@ -12,25 +12,36 @@ export default async function Home() {
     { year: "2023", amount: 237 },
     { year: "2024", amount: 73 },
     { year: "2025", amount: 209 },
-    { year: "2026", amount: 214 },
   ]
 
   const amountMonthData = [
+    { month: "Enero", amount: 120 },
+    { month: "Febrero", amount: 150 },
+    { month: "Marzo", amount: 95 },
+    { month: "Abril", amount: 180 },
+    { month: "Mayo", amount: 210 },
     { month: "Junio", amount: 186 },
     { month: "Julio", amount: 305 },
     { month: "Agosto", amount: 237 },
     { month: "Setiembre", amount: 73 },
     { month: "Octubre", amount: 209 },
     { month: "Noviembre", amount: 214 },
+    { month: "Diciembre", amount: 175 },
   ]
 
   const amountMonthChartMultipleData = [
-    { month: "January", amount1: 186, amount2: 80 },
-    { month: "February", amount1: 305, amount2: 200 },
-    { month: "March", amount1: 237, amount2: 120 },
-    { month: "April", amount1: 73, amount2: 190 },
-    { month: "May", amount1: 209, amount2: 130 },
-    { month: "June", amount1: 214, amount2: 140 },
+    { month: "January", amount1: 120, amount2: 90 },
+    { month: "February", amount1: 150, amount2: 100 },
+    { month: "March", amount1: 95, amount2: 110 },
+    { month: "April", amount1: 180, amount2: 130 },
+    { month: "May", amount1: 210, amount2: 150 },
+    { month: "June", amount1: 186, amount2: 140 },
+    { month: "July", amount1: 305, amount2: 200 },
+    { month: "August", amount1: 237, amount2: 120 },
+    { month: "September", amount1: 73, amount2: 190 },
+    { month: "October", amount1: 209, amount2: 170 },
+    { month: "November", amount1: 214, amount2: 160 },
+    { month: "December", amount1: 175, amount2: 180 },
   ]
 
   const hello = await api.post.hello({ text: "from tRPC" });
