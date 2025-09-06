@@ -2,17 +2,22 @@
 
 import React from "react";
 
-export const DashboardLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+// --- Interface for DashboardLayout Props ---
+interface DashboardLayoutProps {
+  children: React.ReactNode;
+  rowHeight?: string;
+}
+
+// --- UPDATED DashboardLayout Component ---
+// This component no longer has a fixed height and accepts a `rowHeight` prop.
+export const DashboardLayout = ({ children, rowHeight = '180px' }: DashboardLayoutProps) => {
   return (
     <>
-      {/* Using a style tag for complex grid layouts can be cleaner.
-                This defines the grid areas for each child of `.dashboard-grid`.
-            */}
+      {/* Using a style tag for complex grid layouts can be cleaner. */}
       <style>{`
                 .dashboard-grid {
                     display: grid;
                     grid-template-columns: repeat(3, 1fr);
-                    grid-template-rows: repeat(6, 1fr);
                 }
                 /* Assigning each child to a specific grid area */
                 .dashboard-grid > *:nth-child(1) { grid-row: 1 / 2; grid-column: 1 / 2; }
@@ -28,7 +33,7 @@ export const DashboardLayout = ({ children }: Readonly<{ children: React.ReactNo
                 .dashboard-grid > *:nth-child(7) { grid-row: 2 / 5; grid-column: 3 / 4; } /* Spans 3 rows, 1 col */
                 
                 /* This is the bottom chart, now the 8th child */
-                .dashboard-grid > *:nth-child(8) { grid-row: 5 / 7; grid-column: 1 / 4; } /* Spans 2 rows, 3 cols */
+                .dashboard-grid > *:nth-child(8) { grid-row: 5 / 6; grid-column: 1 / 4; } /* Spans 1 row, 3 cols */
 
                 /* This class ensures the children shrink and don't overflow */
                 .grid-child {
@@ -36,7 +41,13 @@ export const DashboardLayout = ({ children }: Readonly<{ children: React.ReactNo
                     overflow: hidden;
                 }
             `}</style>
-      <div className="h-screen w-full gap-4 p-4 bg-gray-50 dashboard-grid">
+      {/* The `h-screen` class has been removed.
+                The row height is now controlled by the `rowHeight` prop via an inline style.
+            */}
+      <div
+        className="w-full gap-4 p-4 bg-gray-50 dashboard-grid"
+        style={{ gridTemplateRows: `repeat(6, ${rowHeight})` }}
+      >
         {/* We map over the children to wrap them in a div with the necessary class */}
         {React.Children.map(children, (child) => (
           <div className="grid-child">{child}</div>
