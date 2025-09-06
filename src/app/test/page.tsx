@@ -3,6 +3,7 @@ import { AmountYearChartBar } from "~/app/_components/amount-year-chart-bar";
 import { AmountMonthChartBar } from "~/app/_components/amount-month-chart-bar";
 import { AmountYearChartAreaLinear } from "~/app/_components/amount-year-chart-area-lineal";
 import { AmountMonthChartLineMultiple } from "~/app/_components/amount-month-chart-line-multiple";
+import { DashboardLayout } from "~/app/_components/dashboard-layout";
 
 export default async function Home() {
   const amountYearData = [
@@ -38,16 +39,18 @@ export default async function Home() {
 
   return (
     <HydrateClient>
-      <div className="grid grid-cols-3 auto-rows-min">
-        <AmountYearChartBar data={amountYearData}/>
-        <AmountYearChartBar data={amountYearData}/>
-        <AmountYearChartBar data={amountYearData}/>
-        <AmountMonthChartBar data={amountMonthData}/>
-        <AmountMonthChartBar data={amountMonthData}/>
-        <AmountMonthChartBar data={amountMonthData}/>
-        <AmountYearChartAreaLinear data={amountYearData}/>
-        <AmountMonthChartLineMultiple data={amountMonthChartMultipleData}/>
-      </div>
+      <DashboardLayout>
+        <AmountYearChartBar data={amountYearData} />
+        <AmountYearChartBar data={amountYearData} />
+        <AmountYearChartBar data={amountYearData} />
+        <AmountMonthChartBar data={amountMonthData} />
+        <AmountMonthChartBar data={amountMonthData} />
+        <AmountMonthChartBar data={amountMonthData} />
+        <div className="h-full rounded-lg bg-amber-500/20 border border-amber-400 flex items-center justify-center">
+          <span className="font-medium text-amber-800">Tall Info Box</span>
+        </div>
+        <AmountMonthChartLineMultiple data={amountMonthChartMultipleData} />
+      </DashboardLayout>
     </HydrateClient>
   );
 }
