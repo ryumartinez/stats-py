@@ -55,17 +55,17 @@ export function AmountMonthChartLineMultiple({ data }: AmountMonthChartLineMulti
         <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
         <Line
           dataKey="amount1"
-          type="monotone"
+          type="linear"
           stroke="var(--color-amount1)"
           strokeWidth={2}
-          dot={false}
+          dot={true}
         />
         <Line
           dataKey="amount2"
-          type="monotone"
+          type="linear"
           stroke="var(--color-amount2)"
           strokeWidth={2}
-          dot={false}
+          dot={true}
         />
       </LineChart>
     </ChartContainer>
