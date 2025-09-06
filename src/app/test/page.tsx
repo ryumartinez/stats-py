@@ -4,7 +4,8 @@ import { AmountMonthChartBar } from "~/app/_components/amount-month-chart-bar";
 import { AmountYearChartAreaLinear } from "~/app/_components/amount-year-chart-area-lineal";
 import { AmountMonthChartLineMultiple } from "~/app/_components/amount-month-chart-line-multiple";
 import { DashboardLayout } from "~/app/_components/dashboard-layout";
-import StatWrapper from "~/app/_components/stat-wrapper";
+import ChartSummary from "~/app/_components/chart-summary";
+import ChartHeader from "~/app/_components/chart-header";
 
 export default async function Home() {
   const amountYearData = [
@@ -52,18 +53,25 @@ export default async function Home() {
   return (
     <HydrateClient>
       <DashboardLayout rowHeight="200px">
-        <AmountYearChartBar data={amountYearData} />
-        <AmountYearChartBar data={amountYearData} />
-        <AmountYearChartBar data={amountYearData} />
-        <StatWrapper name="Total Validaciones" value="678" unit="M">
+        <ChartHeader title="Validaciones" description="Equivalente a cantidad de pasajes">
+          <AmountYearChartBar data={amountYearData} />
+        </ChartHeader>
+        <ChartHeader title="Kilometros" description="Distancia recorrida por los buses">
+          <AmountYearChartBar data={amountYearData} />
+        </ChartHeader>
+        <ChartHeader title="IPK - Indice Pasajero por Kilometro" description="Validaciones por Kilometro">
+          <AmountYearChartBar data={amountYearData} />
+        </ChartHeader>
+
+        <ChartSummary name="Total Validaciones" value="678" unit="M">
           <AmountMonthChartBar data={amountMonthData} />
-        </StatWrapper>
-        <StatWrapper name="Total Kilometros" value="444" unit="M">
+        </ChartSummary>
+        <ChartSummary name="Total Kilometros" value="444" unit="M">
           <AmountMonthChartBar data={amountMonthData} />
-        </StatWrapper>
-        <StatWrapper name="IPK" value="1.53">
+        </ChartSummary>
+        <ChartSummary name="IPK" value="1.53">
           <AmountMonthChartBar data={amountMonthData} />
-        </StatWrapper>
+        </ChartSummary>
         <div className="h-full rounded-lg bg-amber-500/20 border border-amber-400 flex items-center justify-center">
           <span className="font-medium text-amber-800">Tall Info Box</span>
         </div>

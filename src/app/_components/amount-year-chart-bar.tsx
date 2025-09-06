@@ -31,7 +31,7 @@ interface AmountYearChartBarProps {
 
 export function AmountYearChartBar({ data }: AmountYearChartBarProps) {
   return (
-    <ChartContainer config={chartConfig} className="min-h-[150px] max-h-[150px]">
+    <ChartContainer config={chartConfig} className="min-h-[150px] max-h-[150px] w-full">
       <BarChart
         accessibilityLayer
         data={data}
