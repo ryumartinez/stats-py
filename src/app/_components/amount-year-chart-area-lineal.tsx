@@ -39,7 +39,7 @@ export function AmountYearChartAreaLinear({ data }: AmountYearChartAreaLinearPro
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={chartConfig} className="min-h-[150px]">
           <AreaChart
             accessibilityLayer
             data={data}

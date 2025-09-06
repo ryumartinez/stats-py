@@ -42,7 +42,7 @@ export function AmountMonthChartLineMultiple({ data }: AmountMonthChartLineMulti
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={chartConfig} className="min-h-[150px]">
           <LineChart
             accessibilityLayer
             data={data}

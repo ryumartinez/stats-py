@@ -37,7 +37,7 @@ export function AmountMonthChartBar({ data }: AmountMonthChartBarProps) {
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={chartConfig} className="min-h-[150px]">
           <BarChart
             accessibilityLayer
             data={data} // Use the 'data' prop here
