@@ -45,7 +45,7 @@ export const DashboardLayout = ({ children, rowHeight = '180px' }: DashboardLayo
                 The row height is now controlled by the `rowHeight` prop via an inline style.
             */}
       <div
-        className="w-full dashboard-grid"
+        className="w-full gap-8 dashboard-grid"
         style={{ gridTemplateRows: `repeat(6, ${rowHeight})` }}
       >
         {/* We map over the children to wrap them in a div with the necessary class */}

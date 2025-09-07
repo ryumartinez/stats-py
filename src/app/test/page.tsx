@@ -3,8 +3,8 @@ import { AmountYearChartBar } from "~/app/_components/amount-year-chart-bar";
 import { AmountMonthChartBar } from "~/app/_components/amount-month-chart-bar";
 import { AmountYearChartAreaLinear } from "~/app/_components/amount-year-chart-area-lineal";
 import { AmountMonthChartLineMultiple } from "~/app/_components/amount-month-chart-line-multiple";
-import { DashboardLayout } from "~/app/_components/dashboard-layout";
-import ChartSummary from "~/app/_components/chart-summary";
+import { DashboardLayout } from "~/app/_layouts/dashboard-layout";
+import StatSummary from "~/app/_components/stat-summary";
 import ChartHeader from "~/app/_components/chart-header";
 
 export default async function Home() {
@@ -63,15 +63,15 @@ export default async function Home() {
           <AmountYearChartBar data={amountYearData} />
         </ChartHeader>
 
-        <ChartSummary name="Total Validaciones" value="678" unit="M">
+        <StatSummary name="Total Validaciones" value="678" unit="M">
           <AmountMonthChartBar data={amountMonthData} />
-        </ChartSummary>
-        <ChartSummary name="Total Kilometros" value="444" unit="M">
+        </StatSummary>
+        <StatSummary name="Total Kilometros" value="444" unit="M">
           <AmountMonthChartBar data={amountMonthData} />
-        </ChartSummary>
-        <ChartSummary name="IPK" value="1.53">
+        </StatSummary>
+        <StatSummary name="IPK" value="1.53">
           <AmountMonthChartBar data={amountMonthData} />
-        </ChartSummary>
+        </StatSummary>
         <div className="h-full rounded-lg bg-amber-500/20 border border-amber-400 flex items-center justify-center">
           <span className="font-medium text-amber-800">Tall Info Box</span>
         </div>

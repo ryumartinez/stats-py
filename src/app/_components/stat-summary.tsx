@@ -7,7 +7,7 @@ interface StatWrapperProps {
   unit?: string;
 }
 
-export default function ChartSummary(props: StatWrapperProps) {
+export default function StatSummary(props: StatWrapperProps) {
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-7xl">
