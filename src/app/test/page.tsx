@@ -1,34 +1,32 @@
 import { api, HydrateClient } from "~/trpc/server";
-import { AmountYearChartBar } from "~/app/_components/amount-year-chart-bar";
-import { AmountMonthChartBar } from "~/app/_components/amount-month-chart-bar";
-import { AmountYearChartAreaLinear } from "~/app/_components/amount-year-chart-area-lineal";
 import { AmountMonthChartLineMultiple } from "~/app/_components/amount-month-chart-line-multiple";
-import { DashboardLayout } from "~/app/_layouts/dashboard-layout";
+import { SubsidioDashboardLayout } from "~/app/_layouts/subsidio-dashboard-layout";
 import StatSummary from "~/app/_components/stat-summary";
 import ChartHeader from "~/app/_components/chart-header";
+import { TimeAmountBarChart } from "~/app/_components/time-amount-bar-chart";
 
 export default async function Home() {
   const amountYearData = [
-    { year: "2021", amount: 186 },
-    { year: "2022", amount: 305 },
-    { year: "2023", amount: 237 },
-    { year: "2024", amount: 73 },
-    { year: "2025", amount: 209 },
+    { time: "2021", amount: 186 },
+    { time: "2022", amount: 305 },
+    { time: "2023", amount: 237 },
+    { time: "2024", amount: 73 },
+    { time: "2025", amount: 209 },
   ]
 
   const amountMonthData = [
-    { month: "Enero", amount: 120 },
-    { month: "Febrero", amount: 150 },
-    { month: "Marzo", amount: 95 },
-    { month: "Abril", amount: 180 },
-    { month: "Mayo", amount: 210 },
-    { month: "Junio", amount: 186 },
-    { month: "Julio", amount: 305 },
-    { month: "Agosto", amount: 237 },
-    { month: "Setiembre", amount: 73 },
-    { month: "Octubre", amount: 209 },
-    { month: "Noviembre", amount: 214 },
-    { month: "Diciembre", amount: 175 },
+    { time: "Enero", amount: 120 },
+    { time: "Febrero", amount: 150 },
+    { time: "Marzo", amount: 95 },
+    { time: "Abril", amount: 180 },
+    { time: "Mayo", amount: 210 },
+    { time: "Junio", amount: 186 },
+    { time: "Julio", amount: 305 },
+    { time: "Agosto", amount: 237 },
+    { time: "Setiembre", amount: 73 },
+    { time: "Octubre", amount: 209 },
+    { time: "Noviembre", amount: 214 },
+    { time: "Diciembre", amount: 175 },
   ]
 
   const amountMonthChartMultipleData = [
@@ -52,31 +50,37 @@ export default async function Home() {
 
   return (
     <HydrateClient>
-      <DashboardLayout rowHeight="200px">
+      <SubsidioDashboardLayout rowHeight="200px">
         <ChartHeader title="Validaciones" description="Equivalente a cantidad de pasajes">
-          <AmountYearChartBar data={amountYearData} />
+          <TimeAmountBarChart data={amountYearData} color="lightblue"/>
         </ChartHeader>
+
         <ChartHeader title="Kilometros" description="Distancia recorrida por los buses">
-          <AmountYearChartBar data={amountYearData} />
+          <TimeAmountBarChart data={amountYearData} color="blue"/>
         </ChartHeader>
+
         <ChartHeader title="IPK - Indice Pasajero por Kilometro" description="Validaciones por Kilometro">
-          <AmountYearChartBar data={amountYearData} />
+          <TimeAmountBarChart data={amountYearData} color="gray"/>
         </ChartHeader>
 
         <StatSummary name="Total Validaciones" value="678" unit="M">
-          <AmountMonthChartBar data={amountMonthData} />
+          <TimeAmountBarChart data={amountMonthData} color="lightblue"/>
         </StatSummary>
+
         <StatSummary name="Total Kilometros" value="444" unit="M">
-          <AmountMonthChartBar data={amountMonthData} />
+          <TimeAmountBarChart data={amountMonthData} color="gray"/>
         </StatSummary>
+
         <StatSummary name="IPK" value="1.53">
-          <AmountMonthChartBar data={amountMonthData} />
+          <TimeAmountBarChart data={amountMonthData} color="blue"/>
         </StatSummary>
+
         <div className="h-full rounded-lg bg-amber-500/20 border border-amber-400 flex items-center justify-center">
           <span className="font-medium text-amber-800">Tall Info Box</span>
         </div>
+
         <AmountMonthChartLineMultiple data={amountMonthChartMultipleData} />
-      </DashboardLayout>
+      </SubsidioDashboardLayout>
     </HydrateClient>
   );
 }

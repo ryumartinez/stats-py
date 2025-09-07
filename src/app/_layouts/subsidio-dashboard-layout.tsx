@@ -10,7 +10,7 @@ interface DashboardLayoutProps {
 
 // --- UPDATED DashboardLayout Component ---
 // This component no longer has a fixed height and accepts a `rowHeight` prop.
-export const DashboardLayout = ({ children, rowHeight = '180px' }: DashboardLayoutProps) => {
+export const SubsidioDashboardLayout = ({ children, rowHeight = '180px' }: DashboardLayoutProps) => {
   return (
     <>
       {/* Using a style tag for complex grid layouts can be cleaner. */}
