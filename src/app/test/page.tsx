@@ -64,15 +64,21 @@ export default async function Home() {
         </ChartHeader>
 
         <StatSummary name="Total Validaciones" value="678" unit="M">
-          <TimeAmountBarChart data={amountMonthData} color="lightblue"/>
+          <ChartHeader title="Validaciones" description="">
+            <TimeAmountBarChart data={amountMonthData} color="lightblue"/>
+          </ChartHeader>
         </StatSummary>
 
         <StatSummary name="Total Kilometros" value="444" unit="M">
-          <TimeAmountBarChart data={amountMonthData} color="gray"/>
+          <ChartHeader title="Kilometros Recorridos" description="">
+            <TimeAmountBarChart data={amountMonthData} color="gray"/>
+          </ChartHeader>
         </StatSummary>
 
         <StatSummary name="IPK" value="1.53">
-          <TimeAmountBarChart data={amountMonthData} color="blue"/>
+          <ChartHeader title="IPK - Indice Pasajero por Kilometro" description="">
+            <TimeAmountBarChart data={amountMonthData} color="blue"/>
+          </ChartHeader>
         </StatSummary>
 
         <div className="h-full rounded-lg bg-amber-500/20 border border-amber-400 flex items-center justify-center">
