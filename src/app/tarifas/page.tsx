@@ -4,20 +4,47 @@ import ChartHeader from "~/app/_components/chart-header";
 
 
 const MyPage = () => {
-  const amountMonthChartMultipleData = [
-    { month: "January", amount1: 120, amount2: 90 },
-    { month: "February", amount1: 150, amount2: 100 },
-    { month: "March", amount1: 95, amount2: 110 },
-    { month: "April", amount1: 180, amount2: 130 },
-    { month: "May", amount1: 210, amount2: 150 },
-    { month: "June", amount1: 186, amount2: 140 },
-    { month: "July", amount1: 305, amount2: 200 },
-    { month: "August", amount1: 237, amount2: 120 },
-    { month: "September", amount1: 73, amount2: 190 },
-    { month: "October", amount1: 209, amount2: 170 },
-    { month: "November", amount1: 214, amount2: 160 },
-    { month: "December", amount1: 175, amount2: 180 },
-  ]
+
+  const tarifaTecnicaYPromedioData = [
+    // 2023 Data (Original)
+    { month: "Ene 2023", amount1: 4450, amount2: 4600 },
+    { month: "Feb 2023", amount1: 4450, amount2: 4500 },
+    { month: "Mar 2023", amount1: 4450, amount2: 4450 },
+    { month: "Abr 2023", amount1: 4450, amount2: 4300 },
+    { month: "May 2023", amount1: 4450, amount2: 4450 },
+    { month: "Jun 2023", amount1: 4450, amount2: 4300 },
+    { month: "Jul 2023", amount1: 4450, amount2: 4600 },
+    { month: "Ago 2023", amount1: 4450, amount2: 4600 },
+    { month: "Sep 2023", amount1: 4450, amount2: 4500 },
+    { month: "Oct 2023", amount1: 4450, amount2: 4300 },
+    { month: "Nov 2023", amount1: 4450, amount2: 4500 },
+    { month: "Dec 2023", amount1: 4450, amount2: 4500 },
+
+    // 2024 Data (New)
+    { month: "Ene 2024", amount1: 4450, amount2: 4550 },
+    { month: "Feb 2024", amount1: 4450, amount2: 4600 },
+    { month: "Mar 2024", amount1: 4450, amount2: 4650 },
+    { month: "Abr 2024", amount1: 4450, amount2: 4500 },
+    { month: "May 2024", amount1: 4450, amount2: 4650 },
+    { month: "Jun 2024", amount1: 4450, amount2: 4700 },
+    { month: "Jul 2024", amount1: 4450, amount2: 4750 },
+    { month: "Ago 2024", amount1: 4450, amount2: 4600 },
+    { month: "Sep 2024", amount1: 4450, amount2: 4550 },
+    { month: "Oct 2024", amount1: 4450, amount2: 4600 },
+    { month: "Nov 2024", amount1: 4450, amount2: 4700 },
+    { month: "Dec 2024", amount1: 4450, amount2: 4650 },
+
+    // 2025 Data (New)
+    { month: "Ene 2025", amount1: 4450, amount2: 4700 },
+    { month: "Feb 2025", amount1: 4450, amount2: 4750 },
+    { month: "Mar 2025", amount1: 4450, amount2: 4800 },
+    { month: "Abr 2025", amount1: 4450, amount2: 4700 },
+    { month: "May 2025", amount1: 4450, amount2: 4850 },
+    { month: "Jun 2025", amount1: 4450, amount2: 4750 },
+    { month: "Jul 2025", amount1: 4450, amount2: 4800 },
+    { month: "Ago 2025", amount1: 4450, amount2: 4900 },
+    { month: "Sep 2025", amount1: 4450, amount2: 4850 },
+  ];
 
   return (
     <div className="p-8">
@@ -25,28 +52,28 @@ const MyPage = () => {
 
       <TarifaLayout rowHeight="150px">
         {/* This grid will place up to 12 children automatically */}
-        <ChartHeader title="Titulo" description="Descripcion">
-          <AmountMonthChartLineMultiple data={amountMonthChartMultipleData}/>
+        <ChartHeader title="Tarifa Tecnica y Promedio (Gs)" description="Descripcion">
+          <AmountMonthChartLineMultiple data={tarifaTecnicaYPromedioData}/>
         </ChartHeader>
 
-        <ChartHeader title="Titulo" description="Descripcion">
-          <AmountMonthChartLineMultiple data={amountMonthChartMultipleData}/>
+        <ChartHeader title="Tarifa Tecnica y Promedio (Gs)" description="Descripcion">
+          <AmountMonthChartLineMultiple data={tarifaTecnicaYPromedioData}/>
         </ChartHeader>
 
-        <ChartHeader title="Titulo" description="Descripcion">
-          <AmountMonthChartLineMultiple data={amountMonthChartMultipleData}/>
+        <ChartHeader title="Tarifa Tecnica y Promedio (Gs)" description="Descripcion">
+          <AmountMonthChartLineMultiple data={tarifaTecnicaYPromedioData}/>
         </ChartHeader>
 
-        <ChartHeader title="Titulo" description="Descripcion">
-          <AmountMonthChartLineMultiple data={amountMonthChartMultipleData}/>
+        <ChartHeader title="Tarifa Tecnica y Promedio (Gs)" description="Descripcion">
+          <AmountMonthChartLineMultiple data={tarifaTecnicaYPromedioData}/>
         </ChartHeader>
 
-        <ChartHeader title="Titulo" description="Descripcion">
-          <AmountMonthChartLineMultiple data={amountMonthChartMultipleData}/>
+        <ChartHeader title="Tarifa Tecnica y Promedio (Gs)" description="Descripcion">
+          <AmountMonthChartLineMultiple data={tarifaTecnicaYPromedioData}/>
         </ChartHeader>
 
-        <ChartHeader title="Titulo" description="Descripcion">
-          <AmountMonthChartLineMultiple data={amountMonthChartMultipleData}/>
+        <ChartHeader title="Tarifa Tecnica y Promedio (Gs)" description="Descripcion">
+          <AmountMonthChartLineMultiple data={tarifaTecnicaYPromedioData}/>
         </ChartHeader>
         {/* ... and so on for up to 12 items */}
       </TarifaLayout>
