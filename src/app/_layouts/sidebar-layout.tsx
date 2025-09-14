@@ -16,8 +16,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navigation = [
-  { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-  { name: 'Test', href: '/test', icon: ChartPieIcon, current: false },
+  { name: 'Dashboard', href: '/', icon: HomeIcon, current: true },
+  { name: 'Validaciones', href: '/validaciones', icon: ChartPieIcon, current: false },
+  { name: 'Subsidios', href: '/subsidios', icon: ChartPieIcon, current: false },
+  { name: 'Tarifas', href: '/tarifas', icon: ChartPieIcon, current: false },
 ]
 const teams = [
   { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },

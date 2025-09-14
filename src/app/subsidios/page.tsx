@@ -4,6 +4,7 @@ import { SubsidioDashboardLayout } from "~/app/_layouts/subsidio-dashboard-layou
 import StatSummary from "~/app/_components/stat-summary";
 import ChartHeader from "~/app/_components/chart-header";
 import { TimeAmountBarChart } from "~/app/_components/time-amount-bar-chart";
+import { TimeAmountAreaChart } from "~/app/_components/time-amount-area-chart";
 
 export default async function Home() {
   const amountYearData = [
@@ -84,8 +85,8 @@ export default async function Home() {
         <div className="h-full rounded-lg bg-amber-500/20 border border-amber-400 flex items-center justify-center">
           <span className="font-medium text-amber-800">Tall Info Box</span>
         </div>
+        <TimeAmountAreaChart data={amountYearData} color="gray"/>
 
-        <AmountMonthChartLineMultiple data={amountMonthChartMultipleData} />
       </SubsidioDashboardLayout>
     </HydrateClient>
   );
