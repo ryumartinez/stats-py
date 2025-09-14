@@ -1,5 +1,6 @@
 import { TarifaLayout } from "~/app/_layouts/tarifa-layout";
 import { AmountMonthChartLineMultiple } from "~/app/_components/amount-month-chart-line-multiple";
+import ChartHeader from "~/app/_components/chart-header";
 
 
 const MyPage = () => {
@@ -24,12 +25,29 @@ const MyPage = () => {
 
       <TarifaLayout rowHeight="150px">
         {/* This grid will place up to 12 children automatically */}
-        <AmountMonthChartLineMultiple data={amountMonthChartMultipleData}/>
-        <AmountMonthChartLineMultiple data={amountMonthChartMultipleData}/>
-        <AmountMonthChartLineMultiple data={amountMonthChartMultipleData}/>
-        <AmountMonthChartLineMultiple data={amountMonthChartMultipleData}/>
-        <AmountMonthChartLineMultiple data={amountMonthChartMultipleData}/>
-        <AmountMonthChartLineMultiple data={amountMonthChartMultipleData}/>
+        <ChartHeader title="Titulo" description="Descripcion">
+          <AmountMonthChartLineMultiple data={amountMonthChartMultipleData}/>
+        </ChartHeader>
+
+        <ChartHeader title="Titulo" description="Descripcion">
+          <AmountMonthChartLineMultiple data={amountMonthChartMultipleData}/>
+        </ChartHeader>
+
+        <ChartHeader title="Titulo" description="Descripcion">
+          <AmountMonthChartLineMultiple data={amountMonthChartMultipleData}/>
+        </ChartHeader>
+
+        <ChartHeader title="Titulo" description="Descripcion">
+          <AmountMonthChartLineMultiple data={amountMonthChartMultipleData}/>
+        </ChartHeader>
+
+        <ChartHeader title="Titulo" description="Descripcion">
+          <AmountMonthChartLineMultiple data={amountMonthChartMultipleData}/>
+        </ChartHeader>
+
+        <ChartHeader title="Titulo" description="Descripcion">
+          <AmountMonthChartLineMultiple data={amountMonthChartMultipleData}/>
+        </ChartHeader>
         {/* ... and so on for up to 12 items */}
       </TarifaLayout>
     </div>
