@@ -30,20 +30,7 @@ export default async function Home() {
     { time: "Diciembre", amount: 175 },
   ]
 
-  const amountMonthChartMultipleData = [
-    { month: "January", amount1: 120, amount2: 90 },
-    { month: "February", amount1: 150, amount2: 100 },
-    { month: "March", amount1: 95, amount2: 110 },
-    { month: "April", amount1: 180, amount2: 130 },
-    { month: "May", amount1: 210, amount2: 150 },
-    { month: "June", amount1: 186, amount2: 140 },
-    { month: "July", amount1: 305, amount2: 200 },
-    { month: "August", amount1: 237, amount2: 120 },
-    { month: "September", amount1: 73, amount2: 190 },
-    { month: "October", amount1: 209, amount2: 170 },
-    { month: "November", amount1: 214, amount2: 160 },
-    { month: "December", amount1: 175, amount2: 180 },
-  ]
+
 
   const hello = await api.post.hello({ text: "from tRPC" });
 
