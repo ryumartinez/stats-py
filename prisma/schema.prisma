@@ -2,19 +2,46 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "sqlite"
-    url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
 model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-    @@index([name])
+  @@index([name])
+}
+
+model Chart {
+  id         Int             @id @default(autoincrement())
+  name       String
+  data       ChartDataItem[]
+  amountUnit String
+  dateUnit   String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([name])
+}
+
+model ChartDataItem {
+  id      Int      @id @default(autoincrement())
+  chartId Int
+  date    DateTime
+  amount1 Decimal
+  amount2 Decimal?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Chart     Chart    @relation(fields: [chartId], references: [id], onDelete: Cascade)
+
+  @@index([chartId])
 }
