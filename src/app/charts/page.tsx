@@ -1,5 +1,10 @@
 "use client";
 
+import React from 'react';
+import dynamic from 'next/dynamic';
+
+// Avoid SSR by dynamically importing the client component
+const AgEditableGrid = dynamic(() => import('../_components/ag-editable-grid'), { ssr: false });
 import { useState } from "react";
 
 import { api } from "~/trpc/react";
@@ -60,7 +65,7 @@ const ChartsPage = () => {
   return (
     <main className="container mx-auto p-4">
       <h1 className="text-3xl font-bold">Charts</h1>
-
+      <AgEditableGrid />
       {/* Form to create a new chart */}
       <form onSubmit={handleCreateChart} className="my-4 flex flex-col space-y-2">
         <input
