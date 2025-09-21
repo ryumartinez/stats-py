@@ -2,41 +2,46 @@
 
 import { useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, TransitionChild } from '@headlessui/react'
-import {
-  Bars3Icon,
-  CalendarIcon,
-  ChartPieIcon,
-  DocumentDuplicateIcon,
-  FolderIcon,
-  HomeIcon,
-  UsersIcon,
-  XMarkIcon,
-} from '@heroicons/react/24/outline'
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Bars3Icon, ChartPieIcon, HomeIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 const navigation = [
-  { name: 'Dashboard', href: '/', icon: HomeIcon, current: true },
-  { name: 'Validaciones', href: '/validaciones', icon: ChartPieIcon, current: false },
-  { name: 'Subsidios', href: '/subsidios', icon: ChartPieIcon, current: false },
-  { name: 'Tarifas', href: '/tarifas', icon: ChartPieIcon, current: false },
-]
-const teams = [
-  { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },
-  { id: 2, name: 'Tailwind Labs', href: '#', initial: 'T', current: false },
-  { id: 3, name: 'Workcation', href: '#', initial: 'W', current: false },
+  { name: 'Dashboard', href: '/', icon: HomeIcon },
+  { name: 'Validaciones', href: '/validaciones', icon: ChartPieIcon },
+  { name: 'Subsidios', href: '/subsidios', icon: ChartPieIcon },
+  { name: 'Tarifas', href: '/tarifas', icon: ChartPieIcon },
 ]
 
-function classNames(...classes: string[]) {
+const teams = [
+  { id: 1, name: 'Heroicons', href: '#', initial: 'H' },
+  { id: 2, name: 'Tailwind Labs', href: '#', initial: 'T' },
+  { id: 3, name: 'Workcation', href: '#', initial: 'W' },
+]
+
+function classNames(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(' ')
 }
 
+// Normalize to avoid trailing-slash issues ("/validaciones/" vs "/validaciones")
+const normalize = (p: string) => (p !== '/' ? p.replace(/\/+$/, '') : '/')
+
 export default function SidebarLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const pathname = usePathname();
+  const rawPathname = usePathname() || '/'
+  const pathname = normalize(rawPathname)
+
+  // Consider a link active if it matches exactly OR the current path starts with it (for nested routes)
+  const isActive = (href: string) => {
+    const h = normalize(href)
+    if (h === '/') return pathname === '/'
+    return pathname === h || pathname.startsWith(h + '/')
+  }
+
   return (
     <>
       <div>
+        {/* Mobile sidebar */}
         <Dialog open={sidebarOpen} onClose={setSidebarOpen} className="relative z-50 lg:hidden">
           <DialogBackdrop
             transition
@@ -57,7 +62,6 @@ export default function SidebarLayout({ children }: Readonly<{ children: React.R
                 </div>
               </TransitionChild>
 
-              {/* Sidebar component, swap this element with another sidebar if you like */}
               <div className="relative flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2">
                 <div className="relative flex h-16 shrink-0 items-center">
                   <img
@@ -71,31 +75,31 @@ export default function SidebarLayout({ children }: Readonly<{ children: React.R
                     <li>
                       <ul role="list" className="-mx-2 space-y-1">
                         {navigation.map((item) => {
-
-                          const isActive = pathname === item.href;
-
+                          const active = isActive(item.href)
                           return (
                             <li key={item.name}>
                               <Link
                                 href={item.href}
+                                aria-current={active ? 'page' : undefined}
                                 className={classNames(
-                                  isActive
+                                  active
                                     ? 'bg-gray-50 text-indigo-600'
                                     : 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600',
-                                  'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold',
+                                  'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold'
                                 )}
+                                onClick={() => setSidebarOpen(false)}
                               >
                                 <item.icon
                                   aria-hidden="true"
                                   className={classNames(
-                                    isActive ? 'text-indigo-600' : 'text-gray-400 group-hover:text-indigo-600',
-                                    'size-6 shrink-0',
+                                    active ? 'text-indigo-600' : 'text-gray-400 group-hover:text-indigo-600',
+                                    'size-6 shrink-0'
                                   )}
                                 />
                                 {item.name}
                               </Link>
                             </li>
-                          );
+                          )
                         })}
                       </ul>
                     </li>
@@ -106,21 +110,9 @@ export default function SidebarLayout({ children }: Readonly<{ children: React.R
                           <li key={team.name}>
                             <a
                               href={team.href}
-                              className={classNames(
-                                team.current
-                                  ? 'bg-gray-50 text-indigo-600'
-                                  : 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600',
-                                'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold',
-                              )}
+                              className="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-gray-700 hover:bg-gray-50 hover:text-indigo-600"
                             >
-                              <span
-                                className={classNames(
-                                  team.current
-                                    ? 'border-indigo-600 text-indigo-600'
-                                    : 'border-gray-200 text-gray-400 group-hover:border-indigo-600 group-hover:text-indigo-600',
-                                  'flex size-6 shrink-0 items-center justify-center rounded-lg border bg-white text-[0.625rem] font-medium',
-                                )}
-                              >
+                              <span className="flex size-6 shrink-0 items-center justify-center rounded-lg border border-gray-200 bg-white text-[0.625rem] font-medium text-gray-400 group-hover:border-indigo-600 group-hover:text-indigo-600">
                                 {team.initial}
                               </span>
                               <span className="truncate">{team.name}</span>
@@ -136,9 +128,8 @@ export default function SidebarLayout({ children }: Readonly<{ children: React.R
           </div>
         </Dialog>
 
-        {/* Static sidebar for desktop */}
+        {/* Desktop sidebar */}
         <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-          {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
             <div className="flex h-16 shrink-0 items-center">
               <img
@@ -150,63 +141,33 @@ export default function SidebarLayout({ children }: Readonly<{ children: React.R
             <nav className="flex flex-1 flex-col">
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
                 <li>
-                  <ul role="list" className="flex flex-1 flex-col gap-y-7">
-                    <li>
-                      <ul role="list" className="-mx-2 space-y-1">
-                        {navigation.map((item) => (
-                          <li key={item.name}>
-                            <a
-                              href={item.href}
+                  <ul role="list" className="-mx-2 space-y-1">
+                    {navigation.map((item) => {
+                      const active = isActive(item.href)
+                      return (
+                        <li key={item.name}>
+                          <Link
+                            href={item.href}
+                            aria-current={active ? 'page' : undefined}
+                            className={classNames(
+                              active
+                                ? 'bg-gray-50 text-indigo-600'
+                                : 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600',
+                              'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold'
+                            )}
+                          >
+                            <item.icon
+                              aria-hidden="true"
                               className={classNames(
-                                item.current
-                                  ? 'bg-gray-50 text-indigo-600'
-                                  : 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600',
-                                'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold',
+                                active ? 'text-indigo-600' : 'text-gray-400 group-hover:text-indigo-600',
+                                'size-6 shrink-0'
                               )}
-                            >
-                              <item.icon
-                                aria-hidden="true"
-                                className={classNames(
-                                  item.current ? 'text-indigo-600' : 'text-gray-400 group-hover:text-indigo-600',
-                                  'size-6 shrink-0',
-                                )}
-                              />
-                              {item.name}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    </li>
-                    <li>
-                      <div className="text-xs/6 font-semibold text-gray-400">Your teams</div>
-                      <ul role="list" className="-mx-2 mt-2 space-y-1">
-                        {teams.map((team) => (
-                          <li key={team.name}>
-                            <a
-                              href={team.href}
-                              className={classNames(
-                                team.current
-                                  ? 'bg-gray-50 text-indigo-600'
-                                  : 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600',
-                                'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold',
-                              )}
-                            >
-                              <span
-                                className={classNames(
-                                  team.current
-                                    ? 'border-indigo-600 text-indigo-600'
-                                    : 'border-gray-200 text-gray-400 group-hover:border-indigo-600 group-hover:text-indigo-600',
-                                  'flex size-6 shrink-0 items-center justify-center rounded-lg border bg-white text-[0.625rem] font-medium',
-                                )}
-                              >
-                                {team.initial}
-                              </span>
-                              <span className="truncate">{team.name}</span>
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    </li>
+                            />
+                            {item.name}
+                          </Link>
+                        </li>
+                      )
+                    })}
                   </ul>
                 </li>
                 <li className="-mx-6 mt-auto">
@@ -228,6 +189,7 @@ export default function SidebarLayout({ children }: Readonly<{ children: React.R
           </div>
         </div>
 
+        {/* Top bar (mobile) */}
         <div className="sticky top-0 z-40 flex items-center gap-x-6 bg-white px-4 py-4 shadow-xs sm:px-6 lg:hidden">
           <button
             type="button"
@@ -249,7 +211,7 @@ export default function SidebarLayout({ children }: Readonly<{ children: React.R
         </div>
 
         <main className="py-10 lg:pl-72">
-          <div className="px-4 sm:px-6 lg:px-8">{ children }</div>
+          <div className="px-4 sm:px-6 lg:px-8">{children}</div>
         </main>
       </div>
     </>
