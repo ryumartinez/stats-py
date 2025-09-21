@@ -4,9 +4,11 @@ import React, {
   useMemo,
   useRef,
   useState,
+  useCallback,
   type DragEvent,
   type ChangeEvent,
-} from 'react';
+  type JSX,
+} from "react";
 import { AgGridReact } from 'ag-grid-react';
 import {
   ModuleRegistry,
@@ -30,8 +32,8 @@ import {
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 /* ------------------------------
-   Define schema INSIDE component file
-   ------------------------------ */
+   Schema (inline)
+------------------------------ */
 
 const RowSchema = {
   date:    { from: 'Date',    required: true,  parse: parseYyyyMmDd },
@@ -49,31 +51,32 @@ const initialRows: Row[] = [
   { date: '2025-09-12', amount1: 999,    amount2: 123.45 },
 ];
 
-export default function AgEditableGrid() {
+export default function AgEditableGrid(): JSX.Element {
   const [rowData, setRowData] = useState<Row[]>(initialRows);
   const [dragActive, setDragActive] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const gridRef = useRef<AgGridReact<Row>>(null);
 
-  // ---- Parsers & formatters (typed, no any) ----
-  const numberParser = (p: ValueParserParams<Row, number>): number => {
+  // ---- Parsers & formatters (typed, stable) ----
+  const numberParser = useCallback((p: ValueParserParams<Row, number>): number => {
     const n = Number(p.newValue);
     return Number.isFinite(n) ? n : 0;
-  };
+  }, []);
 
-  const numberFormatter = (p: ValueFormatterParams<Row, number>): string =>
-    typeof p.value === 'number'
+  const numberFormatter = useCallback((p: ValueFormatterParams<Row, number>): string => {
+    return typeof p.value === 'number'
       ? p.value.toLocaleString(undefined, { maximumFractionDigits: 2 })
       : '';
+  }, []);
 
-  const dateFormatter = (p: ValueFormatterParams<Row, string>): string => {
+  const dateFormatter = useCallback((p: ValueFormatterParams<Row, string>): string => {
     const value = p.value ?? '';
     if (!value) return '';
     const d = new Date(value);
     return Number.isNaN(d.getTime()) ? value : d.toLocaleDateString();
-  };
+  }, []);
 
-  const dateParser = (p: ValueParserParams<Row, string>): string => {
+  const dateParser = useCallback((p: ValueParserParams<Row, string>): string => {
     const val = String(p.newValue ?? '').trim();
     if (/^\d{4}-\d{2}-\d{2}$/.test(val)) return val;
     const d = new Date(val);
@@ -84,61 +87,58 @@ export default function AgEditableGrid() {
       return `${y}-${m}-${day}`;
     }
     return p.oldValue ?? '';
-  };
+  }, []);
 
   // ---- Columns ----
-  const columnDefs = useMemo<ColDef<Row>[]>(
-    () => [
-      {
-        field: 'date',
-        headerName: 'Date',
-        editable: true,
-        cellEditor: 'agDateStringCellEditor',
-        valueFormatter: dateFormatter,
-        valueParser: dateParser,
-        width: 160,
-      },
-      {
-        field: 'amount1',
-        headerName: 'Amount1',
-        editable: true,
-        valueParser: numberParser,
-        valueFormatter: numberFormatter,
-        width: 140,
-      },
-      {
-        field: 'amount2',
-        headerName: 'Amount2',
-        editable: true,
-        valueParser: numberParser,
-        valueFormatter: numberFormatter,
-        width: 140,
-      },
-    ],
-    []
-  );
+  const columnDefs = useMemo<ColDef<Row>[]>(() => [
+    {
+      field: 'date',
+      headerName: 'Date',
+      editable: true,
+      cellEditor: 'agDateStringCellEditor',
+      valueFormatter: dateFormatter,
+      valueParser: dateParser,
+      width: 160,
+    },
+    {
+      field: 'amount1',
+      headerName: 'Amount1',
+      editable: true,
+      valueParser: numberParser,
+      valueFormatter: numberFormatter,
+      width: 140,
+    },
+    {
+      field: 'amount2',
+      headerName: 'Amount2',
+      editable: true,
+      valueParser: numberParser,
+      valueFormatter: numberFormatter,
+      width: 140,
+    },
+  ], [dateFormatter, dateParser, numberFormatter, numberParser]);
 
   const defaultColDef = useMemo<ColDef<Row>>(
     () => ({ sortable: true, filter: true, resizable: true }),
     []
   );
 
-  function onCellValueChanged(_e: CellValueChangedEvent<Row>): void {
+  const onCellValueChanged = useCallback((_e: CellValueChangedEvent<Row>): void => {
     // AG Grid mutates rows; clone to force React rerender
     setRowData((prev) => [...prev]);
-  }
+  }, []);
 
   // ---- CSV import using inline schema ----
-  const importCsvFile = async (file: File, { append }: { append: boolean }) => {
+  const importCsvFile = useCallback(async (file: File, { append }: { append: boolean }) => {
     const text = await file.text();
     const parsed = parseCsvWithSchema(text, RowSchema);
     if (!parsed.ok) {
       console.error(parsed.errors.join('\n'));
       return;
     }
-    // Optional: surface parsed.warnings somewhere if you like
+    // Optionally surface parsed.warnings
     setRowData((prev) => (append ? [...prev, ...parsed.rows] : parsed.rows));
-  };
+  }, []);
 
   // ---- DnD + picker ----
   const prevent = (e: DragEvent<HTMLDivElement>) => { e.preventDefault(); e.stopPropagation(); };
@@ -149,8 +149,7 @@ export default function AgEditableGrid() {
     const file = e.dataTransfer.files?.[0];
     if (!file) return;
     if (!file.name.toLowerCase().endsWith('.csv')) {
-      console.warn('Only .csv files are supported');
-      return;
+      console.warn('Only .csv files are supported'); return;
     }
     void importCsvFile(file, { append: false });
   };
