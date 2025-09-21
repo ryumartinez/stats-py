@@ -8,6 +8,15 @@ const AgEditableGrid = dynamic(() => import('../_components/ag-editable-grid'), 
 import { useState } from "react";
 
 import { api } from "~/trpc/react";
+import {
+  type FieldSpec,
+  type InferRow,
+  parseNumberLoose,
+  parseYyyyMmDd,
+} from "~/app/_utils/csv-utils";
+import SchemaGrid, {
+  type ColumnType,
+} from "~/app/_components/ag-editable-grid";
 
 const ChartsPage = () => {
   // Query to fetch all charts
@@ -62,10 +71,31 @@ const ChartsPage = () => {
     });
   };
 
+   const ExampleSchema = {
+    date:    { from: 'Date',    required: true,  parse: parseYyyyMmDd },
+    amount1: { from: 'Amount1', required: true,  parse: parseNumberLoose, default: 0 },
+    amount2: { from: 'Amount2', required: true,  parse: parseNumberLoose, default: 0 },
+  } satisfies Record<string, FieldSpec<unknown>>;
+
+   type ExampleRow = InferRow<typeof ExampleSchema>;
+
+   const exampleColumnTypes: Partial<Record<keyof ExampleRow, ColumnType>> = {
+    date: 'date',
+    amount1: 'number',
+    amount2: 'number',
+  };
+
   return (
     <main className="container mx-auto p-4">
       <h1 className="text-3xl font-bold">Charts</h1>
-      <AgEditableGrid />
+      <SchemaGrid
+        schema={ExampleSchema}
+        columnTypes={exampleColumnTypes}
+        initialRows={[
+          { date: '2025-09-01', amount1: 1200.5, amount2: 300 },
+          { date: '2025-09-05', amount1: 450, amount2: 75.25 },
+        ]}
+      />
       {/* Form to create a new chart */}
       <form onSubmit={handleCreateChart} className="my-4 flex flex-col space-y-2">
         <input
